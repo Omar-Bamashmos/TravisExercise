@@ -1,9 +1,14 @@
 
-language: ruby
-rvm:
- - "1.8.7"
- - "1.9.2"
- - "1.9.3"
- - rbx
-# uncomment this line if your project needs to run something other than `rake`:
-# script: bundle exec rspec spec
+language: java
+mvn install -DskipTests=true
+./gradlew check
+gradle assemble
+./gradlew assemble
+
+before_cache:
+  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+    ant test
